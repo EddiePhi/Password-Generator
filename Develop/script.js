@@ -1,22 +1,3 @@
-// Lowercase letters Array
-var lowercase = [
-  'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
-];
-
-// Uppercase Letters Array
-var uppercase = [
-  'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
-];
-
-// Numbers Array
-var numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-
-// Special Characters Array
-var specialChars = [
-  '`','~','!','@','#','$','%','^','&','*','(',')','-','_','+','[',']','{','}','\\','|',
-  '/',';',':',"'",'"',',','<','.','>','/','?'
-];
-
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
@@ -32,50 +13,121 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
+
+
+
+// vvvvvvvvvvv Original Code Starts Here vvvvvvvvvvvvvv
+
+// Lowercase Letters Array
+var lowercase = [
+  'a','b','c','d','e','f','g','h','i','j','k','l','m',
+  'n','o','p','q','r','s','t','u','v','w','x','y','z'
+];
+
+// Uppercase Letters Array
+var uppercase = [
+  'A','B','C','D','E','F','G','H','I','J','K','L','M',
+  'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+];
+
+// Numbers Array
+var numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+// Special Characters Array
+var specialChars = [
+  '`','~','!','@','#','$','%','^','&','*','(',')','-',
+  '_','+','[',']','{','}','\\','|','/',';',':',"'",'"',',','<','.','>','/','?'
+];
+
+//Randomizer for all character type arrays. Returns one element for use.
+function randomize(arr){
+  var index = Math.floor(Math.random() * arr.length);
+  var element = arr[index];
+  return element;
+};
+
 // Series of Prompts
-function passwordCriteriaPrompts(){
+function pwCriteriaPrompts(){
   var pwLength = parseInt(prompt('Please enter desired password length.'));
   
-  if (typeof pwLength === 'string'){
-    alert('Please enter a number value between 8 and 128.')
+  if (Number.isInteger(pwLength) !== true || pwLength < 8 || pwLength > 128){
+    alert('The password length must be at least 8 characters,  but no more than 128 characters.')
+    return;
   };
 
-  prompt('Do you want lowercase letters?');
-  if (){
+  // Variables to confirm validity of password.
+  var hasLowercase = confirm('Do you want "lowercase" letters?');
 
-  };
+  var hasUppercase = confirm('Do you want "UPPERCASE" letters?');
 
-  prompt('Do you want UPPERCASE letters?');
-  if (){
-    
-  };
+  var hasNumbers = confirm('Do you want numbers?');
 
-  prompt('Do you want numbers (0-9)?');
-  if (){
-    
-  };
+  var hasSpecialChars = confirm('Do you want special characters ? (!, @, #, etc.)');
 
-  prompt('Do you want special characters ?(!, @, #, etc.)');
-  if (){
-    
-  };
-};
+  // Alert if no character types are selected.
+  if (hasLowercase !== true && hasUppercase !== true && 
+    hasNumbers !== true && hasSpecialChars !== true){
+    alert('Cannot create password. Please have at least one data type selected.')
+    }
+
+  // Store user input
+    var optionsSelected = {
+      pwLength: pwLength,
+      hasLowercase: hasLowercase,
+      hasUppercase: hasUppercase,
+      hasSpecialChars: hasSpecialChars,
+      hasNumbers: hasNumbers
+    };
   
-passwordCriteriaPrompts();
+  //Local function now set to this object in memory since return operator is last
+  return optionsSelected;
 
-function randomize(){
-/* 
-    - Math.random() // 0 - 1
-    - Math.floor() // round # down to nearest integer
-    - Math.floor(Math.random() + arr.length)
-*/
 };
 
+//Initialize generatePassword() function
+var generatePW = generatePassword();
+
+//Generates Password
 function generatePassword(){
-/* 
-- Combine arrays together.
-    - arr.concat(otherArr) 
-- Combine and convert items in Array into a string
-    - arr.join(“enterDividerHere”) 
-    */
+  //Initialize local to generatePassword()
+  var pwPrompt = pwCriteriaPrompts();
+  var newPW = [];
+
+  if (pwPrompt.hasLowercase) {
+    newPW.push(randomize(lowercase));
+  };
+
+  if (pwPrompt.hasUppercase) {
+    newPW.push(randomize(uppercase));
+  };
+
+  if (pwPrompt.hasNumbers) {
+    newPW.push(randomize(numbers));
+  };
+
+  if (pwPrompt.hasSpecialChars) {
+    newPW.push(randomize(specialChars));
+  };
+
+  alert('Your new password is ' + newPW.join(""));
+
 };
+
+/*
+SCOPE TEST (WORKS):
+
+pushSix();
+
+function pushSix() {
+  var testArray = [1, 2, 3, 4, 5];
+  testArray.push(6);
+  console.log(testArray);
+  return testArray;
+};
+*/
+
+
+  /* 
+- Combine arrays together.
+    - arr.concat(otherArr)
+  */
