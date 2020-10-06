@@ -80,8 +80,8 @@ function pwCriteriaPrompts(){
       pwLength: pwLength,
       hasLowercase: hasLowercase,
       hasUppercase: hasUppercase,
-      hasSpecialChars: hasSpecialChars,
-      hasNumbers: hasNumbers
+      hasNumbers: hasNumbers,
+      hasSpecialChars: hasSpecialChars
     };
   
   //Local function now set to this object in memory since return operator is last
@@ -90,7 +90,7 @@ function pwCriteriaPrompts(){
 };
 
 //Initialize generatePassword() function
-var generatePW = generatePassword();
+//var generatePW = generatePassword();
 
 
 //Generates Password
@@ -113,8 +113,8 @@ function generatePassword(){
     newPW.push(randomize(specialChars));
     };
   };
-
-  alert('Your new password is ' + newPW.join(""));
+  
+  return newPW.join("");
 };
 
 
@@ -133,10 +133,5 @@ function pushSix() {
 };
 */
 
-
-  /* 
-- Combine arrays together.
-    - arr.concat(otherArr)
-  */
 
 
