@@ -1,17 +1,20 @@
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
+  // Assignment Code
+  var generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  // Write password to the #password input
+  function writePassword() {
+    var password = generatePassword();
+    var passwordText = document.querySelector("#password");
+  
+    passwordText.value = password;
+  
+  }
+  
+  // Add event listener to generate button
+  generateBtn.addEventListener("click", writePassword);
 
-  passwordText.value = password;
+// ^^^^^^^^^^^ Starter Code Ends Here ^^^^^^^^^^^^^^
 
-}
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
 
 
 
@@ -48,14 +51,16 @@ function randomize(arr){
 
 // Series of Prompts
 function pwCriteriaPrompts(){
+  //Using parseInt(): https://gomakethings.com/converting-strings-to-numbers-with-vanilla-javascript/
   var pwLength = parseInt(prompt('Please enter desired password length.'));
   
+  //Using Number.isInteger: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger
   if (Number.isInteger(pwLength) !== true || pwLength < 8 || pwLength > 128){
     alert('The password length must be at least 8 characters,  but no more than 128 characters.')
     return;
   };
 
-  // Variables to confirm validity of password.
+  // Variables to confirm validity of password: https://www.w3schools.com/jsref/met_win_confirm.asp
   var hasLowercase = confirm('Do you want "lowercase" letters?');
 
   var hasUppercase = confirm('Do you want "UPPERCASE" letters?');
@@ -64,13 +69,13 @@ function pwCriteriaPrompts(){
 
   var hasSpecialChars = confirm('Do you want special characters ? (!, @, #, etc.)');
 
-  // Alert if no character types are selected.
+  // Alert if at least one character type is not selected.
   if (hasLowercase !== true && hasUppercase !== true && 
     hasNumbers !== true && hasSpecialChars !== true){
     alert('Cannot create password. Please have at least one data type selected.')
     }
 
-  // Store user input
+  // Save user input into an object: https://www.youtube.com/watch?v=NxVCq4p0Kb0
     var optionsSelected = {
       pwLength: pwLength,
       hasLowercase: hasLowercase,
@@ -87,31 +92,33 @@ function pwCriteriaPrompts(){
 //Initialize generatePassword() function
 var generatePW = generatePassword();
 
+
 //Generates Password
 function generatePassword(){
   //Initialize local to generatePassword()
   var pwPrompt = pwCriteriaPrompts();
   var newPW = [];
 
-  if (pwPrompt.hasLowercase) {
-    newPW.push(randomize(lowercase));
-  };
-
-  if (pwPrompt.hasUppercase) {
-    newPW.push(randomize(uppercase));
-  };
-
-  if (pwPrompt.hasNumbers) {
+  for (i = newPW.length; i <= pwPrompt.pwLength - 1; i++){
+    if (pwPrompt.hasLowercase && newPW.length < pwPrompt.pwLength) {
+      newPW.push(randomize(lowercase));
+    };
+    if (pwPrompt.hasUppercase && newPW.length < pwPrompt.pwLength) {
+      newPW.push(randomize(uppercase));
+    }; 
+    if (pwPrompt.hasNumbers && newPW.length < pwPrompt.pwLength) {
     newPW.push(randomize(numbers));
-  };
-
-  if (pwPrompt.hasSpecialChars) {
+    }; 
+    if (pwPrompt.hasSpecialChars && newPW.length < pwPrompt.pwLength) {
     newPW.push(randomize(specialChars));
+    };
   };
 
   alert('Your new password is ' + newPW.join(""));
-
 };
+
+
+
 
 /*
 SCOPE TEST (WORKS):
@@ -131,3 +138,5 @@ function pushSix() {
 - Combine arrays together.
     - arr.concat(otherArr)
   */
+
+
