@@ -9,7 +9,7 @@ Description: I developed a random generation functionality for this password app
 
 Screenshot:
 
-![Password Generator](./Assets/Images/password-generator.png)
+![Password Generator](Assets/Images/Password-Generator.png)
 
 Technologies: HTML5, CSS3, JavaScript
 
